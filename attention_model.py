@@ -1,17 +1,38 @@
 import torch
 from torch import nn
 import math
-from typing import NamedTuple
+# from typing import NamedTuple (edited)
 from graph_encoder import GraphAttentionEncoder
 from distributions import FixedCategorical
 from tools import observation_decode_leaf_node, init
 
-class AttentionModelFixed(NamedTuple):
-    node_embeddings: torch.Tensor
-    context_node_projected: torch.Tensor
-    glimpse_key: torch.Tensor
-    glimpse_val: torch.Tensor
-    logit_key: torch.Tensor
+# class AttentionModelFixed(NamedTuple):
+#     node_embeddings: torch.Tensor
+#     context_node_projected: torch.Tensor
+#     glimpse_key: torch.Tensor
+#     glimpse_val: torch.Tensor
+#     logit_key: torch.Tensor
+
+#     def __getitem__(self, key):
+#         if torch.is_tensor(key) or isinstance(key, slice):
+#             return AttentionModelFixed(
+#                 node_embeddings=self.node_embeddings[key],
+#                 context_node_projected=self.context_node_projected[key],
+#                 glimpse_key=self.glimpse_key[:, key],
+#                 glimpse_val=self.glimpse_val[:, key],
+#                 logit_key=self.logit_key[key]
+#             )
+#         return super(AttentionModelFixed, self).__getitem__(key)
+
+#below is edited
+
+class AttentionModelFixed:
+    def __init__(self, node_embeddings, context_node_projected, glimpse_key, glimpse_val, logit_key):
+        self.node_embeddings = node_embeddings
+        self.context_node_projected = context_node_projected
+        self.glimpse_key = glimpse_key
+        self.glimpse_val = glimpse_val
+        self.logit_key = logit_key
 
     def __getitem__(self, key):
         if torch.is_tensor(key) or isinstance(key, slice):
@@ -22,7 +43,9 @@ class AttentionModelFixed(NamedTuple):
                 glimpse_val=self.glimpse_val[:, key],
                 logit_key=self.logit_key[key]
             )
-        return super(AttentionModelFixed, self).__getitem__(key)
+        raise KeyError(f"Invalid key: {key}")
+        
+#till this
 
 class AttentionModel(nn.Module):
 
