@@ -1,6 +1,7 @@
 from .space import Space
 import numpy as np
 import gym
+from gym import spaces
 from .binCreator import RandomBoxCreator, LoadBoxCreator, BoxCreator
 import torch
 import random
@@ -40,6 +41,7 @@ class PackingDiscrete(gym.Env):
         self.test = load_test_data
         self.observation_space = gym.spaces.Box(low=0.0, high=self.space.height,
                                                 shape=((self.internal_node_holder + self.leaf_node_holder + self.next_holder) * 9,))
+        self.action_space = gym.spaces.Discrete(n_actions)
         self.next_box_vec = np.zeros((self.next_holder, 9))
 
         self.LNES = LNES  # Leaf Node Expansion Schemes: EMS (recommend), EV, EP, CP, FC
