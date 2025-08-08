@@ -144,9 +144,9 @@ def _subproc_worker(pipe, parent_pipe, env_fn_wrapper, obs_bufs, obs_shapes, obs
                 if len(step_result) == 5:
                   obs, reward, terminated, truncated, info = step_result
                   done = terminated or truncated
-               else:
-                 obs, reward, done, info = step_result
-                 terminated, truncated = done, False
+                else:
+                  obs, reward, done, info = step_result
+                  terminated, truncated = done, False
 
           #till this
 
