@@ -137,7 +137,12 @@ def _subproc_worker(pipe, parent_pipe, env_fn_wrapper, obs_bufs, obs_shapes, obs
                 # pipe.send(_write_obs(env.reset()))
                 pipe.send(env.reset())
             elif cmd == 'step':
-                obs, reward, done, info = env.step(data)
+                # obs, reward, done, info = env.step(data)
+
+                  #below 2 lines are added
+                obs, reward, terminated, truncated, info = env.step(data)
+                done = terminated or truncated
+
                 if done:
                     obs = env.reset()
                 pipe.send((obs, reward, done, info))
