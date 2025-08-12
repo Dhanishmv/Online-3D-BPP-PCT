@@ -101,7 +101,10 @@ def point_in_polygen(point, coords):
     oddnodes = False
 
     for i in range(polysides):
-        if np.sum(np.cross(coords[i] - point, point - coords[j])) == 0:
+        # if np.sum(np.cross(coords[i] - point, point - coords[j])) == 0:
+
+        #1 line below is added
+        if np.cross(np.append(coords[i] - point, 0), np.append(point - coords[j], 0)):
             return False
 
         if (coords[i][1] < lon and coords[j][1] >= lon) or (coords[j][1] < lon and coords[i][1] >= lon):
