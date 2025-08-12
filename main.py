@@ -12,6 +12,12 @@ from train_tools import train_tools
 from tensorboardX import SummaryWriter
 from tools import get_args, registration_envs
 
+#below  3 lines are added
+import numpy as np
+if not hasattr(np, 'bool8'):
+    np.bool8 = np.bool_
+
+
 def main(args):
 
     # The name of this experiment, related file backups and experiment tensorboard logs will
