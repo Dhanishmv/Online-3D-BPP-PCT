@@ -50,7 +50,8 @@ class PackingContinuous(gym.Env):
                                                 shape=((self.internal_node_holder + self.leaf_node_holder + self.next_holder) * 9,))
 
 
-        #below 1 line is added
+        #below 2 lines are added
+        self.space.width, self.space.depth, self.space.height = 10, 10, 10
         self.action_space = gym.spaces.Box(low=np.array([0.0, 0.0, 0.0, 0.0], dtype=np.float32),high=np.array([self.space.width, self.space.depth, self.space.height, 5.0], dtype=np.float32), dtype=np.float32)
 
         self.next_box_vec = np.zeros((self.next_holder, 9))
